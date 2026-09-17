@@ -159,6 +159,12 @@ pclass
 924       3         0      Kelly, Mr. James    male  34.5  330911  7.8292        Q
 925       3         0      Kelly, Mr. James    male  44.0  363592  8.0500        S
 
+[Q3b] is the missingness random? rate (%) by passenger class
+  age   : class 1 = 12.07, class 2 = 5.78, class 3 = 29.34
+  cabin : class 1 = 20.74, class 2 = 91.70, class 3 = 97.74
+  Missingness is concentrated in the lower classes, so it is not
+  missing completely at random.
+
 [Q4] data types needing attention
   survived / pclass stored as int64 but are categorical
   sex, embarked stored as free text and must be encoded for modelling
@@ -267,27 +273,31 @@ Fare outliers are dominated by shared group tickets: the full ticket
 price is repeated on every passenger travelling on that ticket.
 fare outliers before per-person adjustment : 171
 fare_per_person outliers after adjustment  : 270
+log1p(fare_per_person) outliers            : 87
+Note: the per-person figure also narrows the IQR itself, so the flagged
+count rises even though the distribution is less distorted; skewness is
+the more informative measure here.
 skewness fare            : 4.365
 skewness fare_per_person : 2.981
 skewness log1p(fare_pp)  : 0.963
 
 largest sibsp values (15 records, two real families):
-                                    name    ticket  sibsp  parch   age
-825       Goodwin, Master. Harold Victor   CA 2144      5      2   9.0
-826      Goodwin, Master. Sidney Leonard   CA 2144      5      2   1.0
-827   Goodwin, Master. William Frederick   CA 2144      5      2  11.0
-828          Goodwin, Miss. Jessie Allis   CA 2144      5      2  10.0
-829           Goodwin, Miss. Lillian Amy   CA 2144      5      2  16.0
-830          Goodwin, Mr. Charles Edward   CA 2144      5      2  14.0
-1170          Sage, Master. Thomas Henry  CA. 2343      8      2   6.0
-1171         Sage, Master. William Henry  CA. 2343      8      2  14.5
-1172                     Sage, Miss. Ada  CA. 2343      8      2  18.0
-1173        Sage, Miss. Constance Gladys  CA. 2343      8      2  18.0
-1174   Sage, Miss. Dorothy Edith 'Dolly'  CA. 2343      8      2  18.0
-1175             Sage, Miss. Stella Anna  CA. 2343      8      2  18.0
-1176            Sage, Mr. Douglas Bullen  CA. 2343      8      2  26.0
-1177                 Sage, Mr. Frederick  CA. 2343      8      2  26.0
-1178            Sage, Mr. George John Jr  CA. 2343      8      2  26.0
+                                    name    ticket  sibsp  parch
+825       Goodwin, Master. Harold Victor   CA 2144      5      2
+826      Goodwin, Master. Sidney Leonard   CA 2144      5      2
+827   Goodwin, Master. William Frederick   CA 2144      5      2
+828          Goodwin, Miss. Jessie Allis   CA 2144      5      2
+829           Goodwin, Miss. Lillian Amy   CA 2144      5      2
+830          Goodwin, Mr. Charles Edward   CA 2144      5      2
+1170          Sage, Master. Thomas Henry  CA. 2343      8      2
+1171         Sage, Master. William Henry  CA. 2343      8      2
+1172                     Sage, Miss. Ada  CA. 2343      8      2
+1173        Sage, Miss. Constance Gladys  CA. 2343      8      2
+1174   Sage, Miss. Dorothy Edith 'Dolly'  CA. 2343      8      2
+1175             Sage, Miss. Stella Anna  CA. 2343      8      2
+1176            Sage, Mr. Douglas Bullen  CA. 2343      8      2
+1177                 Sage, Mr. Frederick  CA. 2343      8      2
+1178            Sage, Mr. George John Jr  CA. 2343      8      2
 
 Decision: no outlier rows were deleted or capped. Every extreme value
 traces back to a documented passenger (infants, large families,
