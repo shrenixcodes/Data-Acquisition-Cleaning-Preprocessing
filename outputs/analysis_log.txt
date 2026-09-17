@@ -1,0 +1,407 @@
+
+==============================================================================
+1. DATA ACQUISITION
+==============================================================================
+Using local copy: data\titanic.csv
+Source URL : https://www.openml.org/data/get_csv/16826755/phpMYEkMl
+File size  : 117743 bytes
+Shape      : (1309, 14)
+
+==============================================================================
+2. INITIAL EXPLORATION
+==============================================================================
+
+--- head(5) ---
+   pclass  survived                                             name     sex      age  sibsp  parch  ticket      fare    cabin embarked boat   body                        home.dest
+0       1         1                    Allen, Miss. Elisabeth Walton  female  29.0000      0      0   24160  211.3375       B5        S    2    NaN                     St Louis, MO
+1       1         1                   Allison, Master. Hudson Trevor    male   0.9167      1      2  113781  151.5500  C22 C26        S   11    NaN  Montreal, PQ / Chesterville, ON
+2       1         0                     Allison, Miss. Helen Loraine  female   2.0000      1      2  113781  151.5500  C22 C26        S  NaN    NaN  Montreal, PQ / Chesterville, ON
+3       1         0             Allison, Mr. Hudson Joshua Creighton    male  30.0000      1      2  113781  151.5500  C22 C26        S  NaN  135.0  Montreal, PQ / Chesterville, ON
+4       1         0  Allison, Mrs. Hudson J C (Bessie Waldo Daniels)  female  25.0000      1      2  113781  151.5500  C22 C26        S  NaN    NaN  Montreal, PQ / Chesterville, ON
+
+--- dimensions ---
+rows: 1309  columns: 14
+
+--- columns ---
+['pclass', 'survived', 'name', 'sex', 'age', 'sibsp', 'parch', 'ticket', 'fare', 'cabin', 'embarked', 'boat', 'body', 'home.dest']
+
+--- dtypes ---
+pclass         int64
+survived       int64
+name          object
+sex           object
+age          float64
+sibsp          int64
+parch          int64
+ticket        object
+fare         float64
+cabin         object
+embarked      object
+boat          object
+body         float64
+home.dest     object
+
+--- info() ---
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 1309 entries, 0 to 1308
+Data columns (total 14 columns):
+ #   Column     Non-Null Count  Dtype  
+---  ------     --------------  -----  
+ 0   pclass     1309 non-null   int64  
+ 1   survived   1309 non-null   int64  
+ 2   name       1309 non-null   object 
+ 3   sex        1309 non-null   object 
+ 4   age        1046 non-null   float64
+ 5   sibsp      1309 non-null   int64  
+ 6   parch      1309 non-null   int64  
+ 7   ticket     1309 non-null   object 
+ 8   fare       1308 non-null   float64
+ 9   cabin      295 non-null    object 
+ 10  embarked   1307 non-null   object 
+ 11  boat       486 non-null    object 
+ 12  body       121 non-null    float64
+ 13  home.dest  745 non-null    object 
+dtypes: float64(3), int64(4), object(7)
+memory usage: 143.3+ KB
+
+
+--- describe() numeric ---
+           count        mean        std     min      25%       50%      75%       max
+pclass    1309.0    2.294882   0.837836  1.0000   2.0000    3.0000    3.000    3.0000
+survived  1309.0    0.381971   0.486055  0.0000   0.0000    0.0000    1.000    1.0000
+age       1046.0   29.881135  14.413500  0.1667  21.0000   28.0000   39.000   80.0000
+sibsp     1309.0    0.498854   1.041658  0.0000   0.0000    0.0000    1.000    8.0000
+parch     1309.0    0.385027   0.865560  0.0000   0.0000    0.0000    0.000    9.0000
+fare      1308.0   33.295479  51.758668  0.0000   7.8958   14.4542   31.275  512.3292
+body       121.0  160.809917  97.696922  1.0000  72.0000  155.0000  256.000  328.0000
+
+--- describe() object ---
+          count unique                   top freq
+name       1309   1307  Connolly, Miss. Kate    2
+sex        1309      2                  male  843
+ticket     1309    929              CA. 2343   11
+cabin       295    186           C23 C25 C27    6
+embarked   1307      3                     S  914
+boat        486     27                    13   39
+home.dest   745    369          New York, NY   64
+
+--- missing values ---
+           missing  missing_pct
+body          1188        90.76
+cabin         1014        77.46
+boat           823        62.87
+home.dest      564        43.09
+age            263        20.09
+embarked         2         0.15
+fare             1         0.08
+
+--- duplicates ---
+exact duplicate rows: 0
+
+--- categorical value inspection ---
+
+pclass (unique=3)
+pclass
+3    709
+1    323
+2    277
+
+survived (unique=2)
+survived
+0    809
+1    500
+
+sex (unique=2)
+sex
+male      843
+female    466
+
+embarked (unique=3)
+embarked
+S      914
+C      270
+Q      123
+NaN      2
+name: 1307 unique values
+ticket: 929 unique values
+cabin: 186 unique values
+home.dest: 369 unique values
+boat: 27 unique values
+
+==============================================================================
+3. DATA-QUALITY INVESTIGATION
+==============================================================================
+
+[Q1] Columns dominated by missingness or leaking the target
+  boat       missing=  823 (62.87%)  unique=27
+  body       missing= 1188 (90.76%)  unique=121
+  home.dest  missing=  564 (43.09%)  unique=369
+  cabin      missing= 1014 (77.46%)  unique=186
+  survival rate by whether a lifeboat number was recorded:
+boat
+False    0.0279
+True     0.9815
+  passengers with a body-recovery number who survived: 0
+
+[Q2] fare == 0 : 17 records (a purchased ticket cannot cost zero) - by class:
+pclass
+1    7
+2    6
+3    4
+
+[Q3] duplicate check
+  exact duplicate rows                   : 0
+  duplicates ignoring identifier columns : 195
+  repeated passenger names               : 2
+     pclass  survived                  name     sex   age  ticket    fare embarked
+725       3         1  Connolly, Miss. Kate  female  22.0  370373  7.7500        Q
+726       3         0  Connolly, Miss. Kate  female  30.0  330972  7.6292        Q
+924       3         0      Kelly, Mr. James    male  34.5  330911  7.8292        Q
+925       3         0      Kelly, Mr. James    male  44.0  363592  8.0500        S
+
+[Q4] data types needing attention
+  survived / pclass stored as int64 but are categorical
+  sex, embarked stored as free text and must be encoded for modelling
+  body stored as float64 although it is an identifier, not a measurement
+
+[Q5] suspicious numeric values
+  age  min=0.1667  max=80.0
+  age below 1 year: 12 records (infants - plausible)
+  fare min=0.0000  max=512.3292
+  sibsp max=8  parch max=9
+  highest fares (shared-ticket check):
+     pclass                                                             name    ticket      fare  sibsp  parch
+49        1                               Cardeza, Mr. Thomas Drake Martinez  PC 17755  512.3292      0      1
+50        1  Cardeza, Mrs. James Warburton Martinez (Charlotte Wardle Drake)  PC 17755  512.3292      0      1
+183       1                                           Lesurer, Mr. Gustave J  PC 17755  512.3292      0      0
+302       1                                                 Ward, Miss. Anna  PC 17755  512.3292      0      0
+  passengers sharing ticket 'PC 17755': 4
+
+==============================================================================
+4. MISSING-VALUE TREATMENT
+==============================================================================
+Dropped columns (post-outcome leakage / unusable free text): ['boat', 'body', 'home.dest']
+
+cabin -> deck (first letter); missing kept as an explicit 'Unknown' level:
+deck
+Unknown    1014
+C            94
+B            65
+D            46
+E            41
+A            22
+F            21
+G             5
+T             1
+
+raw titles extracted from 'name':
+title
+Mr              757
+Miss            260
+Mrs             197
+Master           61
+Dr                8
+Rev               8
+Col               4
+Major             2
+Mlle              2
+Ms                2
+Lady              1
+Capt              1
+Mme               1
+Sir               1
+Jonkheer          1
+Dona              1
+Don               1
+the Countess      1
+
+titles after consolidating equivalent and rare forms:
+title
+Mr        757
+Miss      264
+Mrs       198
+Master     61
+Rare       29
+
+fare medians by pclass used for imputation:
+pclass
+1    61.3792
+2    15.0500
+3     8.0500
+
+embarked: 2 missing -> imputed with the mode 'S'
+
+age: 263 missing (20.09%) -> median within (pclass, sex, title) groups
+         before     after
+count  1046.000  1309.000
+mean     29.881    29.267
+std      14.413    13.447
+min       0.167     0.167
+25%      21.000    21.000
+50%      28.000    26.000
+75%      39.000    36.500
+max      80.000    80.000
+
+remaining missing values: 1014
+
+==============================================================================
+5. DUPLICATE HANDLING
+==============================================================================
+rows before duplicate handling      : 1309
+exact duplicate rows detected       : 0
+duplicates on non-identifier subset : 195
+The subset matches and the two repeated names belong to genuinely
+different passengers (different tickets, fares or ports), so no rows
+were removed - deleting them would discard real observations.
+
+==============================================================================
+6. OUTLIER ANALYSIS (IQR)
+==============================================================================
+column     Q1     Q3    IQR   lower  upper  n_outliers   pct
+   age 21.000 36.500 15.500  -2.250 59.750          40  3.06
+  fare  7.925 31.387 23.462 -27.269 66.581         171 13.06
+ sibsp  0.000  1.000  1.000  -1.500  2.500          57  4.35
+ parch  0.000  0.000  0.000   0.000  0.000         307 23.45
+
+Fare outliers are dominated by shared group tickets: the full ticket
+price is repeated on every passenger travelling on that ticket.
+fare outliers before per-person adjustment : 171
+fare_per_person outliers after adjustment  : 270
+skewness fare            : 4.365
+skewness fare_per_person : 2.981
+skewness log1p(fare_pp)  : 0.963
+
+largest sibsp values (15 records, two real families):
+                                    name    ticket  sibsp  parch   age
+825       Goodwin, Master. Harold Victor   CA 2144      5      2   9.0
+826      Goodwin, Master. Sidney Leonard   CA 2144      5      2   1.0
+827   Goodwin, Master. William Frederick   CA 2144      5      2  11.0
+828          Goodwin, Miss. Jessie Allis   CA 2144      5      2  10.0
+829           Goodwin, Miss. Lillian Amy   CA 2144      5      2  16.0
+830          Goodwin, Mr. Charles Edward   CA 2144      5      2  14.0
+1170          Sage, Master. Thomas Henry  CA. 2343      8      2   6.0
+1171         Sage, Master. William Henry  CA. 2343      8      2  14.5
+1172                     Sage, Miss. Ada  CA. 2343      8      2  18.0
+1173        Sage, Miss. Constance Gladys  CA. 2343      8      2  18.0
+1174   Sage, Miss. Dorothy Edith 'Dolly'  CA. 2343      8      2  18.0
+1175             Sage, Miss. Stella Anna  CA. 2343      8      2  18.0
+1176            Sage, Mr. Douglas Bullen  CA. 2343      8      2  26.0
+1177                 Sage, Mr. Frederick  CA. 2343      8      2  26.0
+1178            Sage, Mr. George John Jr  CA. 2343      8      2  26.0
+
+Decision: no outlier rows were deleted or capped. Every extreme value
+traces back to a documented passenger (infants, large families,
+first-class group tickets); the skew is handled by the per-person and
+logarithmic transforms instead.
+
+==============================================================================
+7. PREPROCESSING
+==============================================================================
+engineered features: family_size, is_alone, fare_per_person, fare_log, title, deck
+dropped identifier columns: name, ticket, cabin
+(their information is retained through title, fare_per_person and deck)
+encoded: sex -> {male:0, female:1}; survived and pclass cast to int8
+one-hot encoded (drop_first=True): ['embarked', 'title', 'deck'] -> 14 indicator columns
+standardised to zero mean and unit variance: ['age', 'fare_log', 'family_size']
+             age   fare_log  family_size
+count  1309.0000  1309.0000    1309.0000
+mean     -0.0000     0.0000       0.0000
+std       1.0004     1.0004       1.0004
+min      -2.1648    -2.2975      -0.5583
+25%      -0.6150    -0.6163      -0.5583
+50%      -0.2430    -0.5333      -0.5583
+75%       0.5381     0.3689       0.0734
+max       3.7742     3.6915       5.7586
+
+==============================================================================
+8. VALIDATION
+==============================================================================
+remaining missing values : 0
+exact duplicate rows     : 180
+final shape              : (1309, 25)
+
+final dtypes:
+pclass                int8
+survived              int8
+sex                   int8
+age                float64
+sibsp                int64
+parch                int64
+fare               float64
+fare_per_person    float64
+fare_log           float64
+family_size        float64
+is_alone             int64
+embarked_Q            int8
+embarked_S            int8
+title_Miss            int8
+title_Mr              int8
+title_Mrs             int8
+title_Rare            int8
+deck_B                int8
+deck_C                int8
+deck_D                int8
+deck_E                int8
+deck_F                int8
+deck_G                int8
+deck_T                int8
+deck_Unknown          int8
+
+final describe():
+                  count     mean      std     min     25%      50%      75%       max
+pclass           1309.0   2.2949   0.8378  1.0000  2.0000   3.0000   3.0000    3.0000
+survived         1309.0   0.3820   0.4861  0.0000  0.0000   0.0000   1.0000    1.0000
+sex              1309.0   0.3560   0.4790  0.0000  0.0000   0.0000   1.0000    1.0000
+age              1309.0  -0.0000   1.0004 -2.1648 -0.6150  -0.2430   0.5381    3.7742
+sibsp            1309.0   0.4989   1.0417  0.0000  0.0000   0.0000   1.0000    8.0000
+parch            1309.0   0.3850   0.8656  0.0000  0.0000   0.0000   0.0000    9.0000
+fare             1309.0  33.6980  51.6771  3.1708  7.9250  14.5000  31.3875  512.3292
+fare_per_person  1309.0  15.0860  13.7885  2.0125  7.6500   8.1125  15.0500  128.0823
+fare_log         1309.0   0.0000   1.0004 -2.2975 -0.6163  -0.5333   0.3689    3.6915
+family_size      1309.0   0.0000   1.0004 -0.5583 -0.5583  -0.5583   0.0734    5.7586
+is_alone         1309.0   0.6035   0.4894  0.0000  0.0000   1.0000   1.0000    1.0000
+embarked_Q       1309.0   0.0940   0.2919  0.0000  0.0000   0.0000   0.0000    1.0000
+embarked_S       1309.0   0.6998   0.4585  0.0000  0.0000   1.0000   1.0000    1.0000
+title_Miss       1309.0   0.2017   0.4014  0.0000  0.0000   0.0000   0.0000    1.0000
+title_Mr         1309.0   0.5783   0.4940  0.0000  0.0000   1.0000   1.0000    1.0000
+title_Mrs        1309.0   0.1513   0.3584  0.0000  0.0000   0.0000   0.0000    1.0000
+title_Rare       1309.0   0.0222   0.1472  0.0000  0.0000   0.0000   0.0000    1.0000
+deck_B           1309.0   0.0497   0.2173  0.0000  0.0000   0.0000   0.0000    1.0000
+deck_C           1309.0   0.0718   0.2583  0.0000  0.0000   0.0000   0.0000    1.0000
+deck_D           1309.0   0.0351   0.1842  0.0000  0.0000   0.0000   0.0000    1.0000
+deck_E           1309.0   0.0313   0.1743  0.0000  0.0000   0.0000   0.0000    1.0000
+deck_F           1309.0   0.0160   0.1257  0.0000  0.0000   0.0000   0.0000    1.0000
+deck_G           1309.0   0.0038   0.0617  0.0000  0.0000   0.0000   0.0000    1.0000
+deck_T           1309.0   0.0008   0.0276  0.0000  0.0000   0.0000   0.0000    1.0000
+deck_Unknown     1309.0   0.7746   0.4180  0.0000  1.0000   1.0000   1.0000    1.0000
+
+invalid-value checks:
+  negative fare_per_person : 0
+  age outside (0, 100]     : 0
+  survived outside {0,1}   : 0
+  pclass outside {1,2,3}   : 0
+
+duplicate records with identifiers retained : 0
+repeated feature vectors after identifier removal : 180
+(these are separate passengers whose remaining attributes coincide,
+not duplicated records, so they are retained)
+
+--- BEFORE vs AFTER ---
+                                        Metric Before After
+                                          Rows   1309  1309
+                                       Columns     14    25
+                          Total missing values   3855     0
+             Columns containing missing values      7     0
+      Duplicate records (identifiers included)      0     0
+Repeated feature vectors (identifiers removed)    195   180
+                             Zero-valued fares     17     0
+                         Text (object) columns      7     0
+                     Numeric / encoded columns      7    25
+                           Ready for modelling     No   Yes
+
+saved data/titanic_cleaned.csv and data/titanic_processed.csv
+
+==============================================================================
+9. FIGURES
+==============================================================================
+figures written to outputs\figures

@@ -1,0 +1,983 @@
+{
+ "source_url": "https://www.openml.org/data/get_csv/16826755/phpMYEkMl",
+ "file_bytes": 117743,
+ "raw_shape": [
+  1309,
+  14
+ ],
+ "head_cols": [
+  "pclass",
+  "survived",
+  "name",
+  "sex",
+  "age",
+  "sibsp",
+  "parch",
+  "ticket",
+  "fare",
+  "cabin",
+  "embarked",
+  "boat",
+  "body",
+  "home.dest"
+ ],
+ "head_rows": [
+  [
+   1,
+   1,
+   "Allen, Miss. Elisabeth Walton",
+   "female",
+   29.0,
+   0,
+   0,
+   "24160",
+   211.3375,
+   "B5",
+   "S",
+   "2",
+   "",
+   "St Louis, MO"
+  ],
+  [
+   1,
+   1,
+   "Allison, Master. Hudson Trevor",
+   "male",
+   0.9167,
+   1,
+   2,
+   "113781",
+   151.55,
+   "C22 C26",
+   "S",
+   "11",
+   "",
+   "Montreal, PQ / Chesterville, ON"
+  ],
+  [
+   1,
+   0,
+   "Allison, Miss. Helen Loraine",
+   "female",
+   2.0,
+   1,
+   2,
+   "113781",
+   151.55,
+   "C22 C26",
+   "S",
+   "",
+   "",
+   "Montreal, PQ / Chesterville, ON"
+  ],
+  [
+   1,
+   0,
+   "Allison, Mr. Hudson Joshua Creighton",
+   "male",
+   30.0,
+   1,
+   2,
+   "113781",
+   151.55,
+   "C22 C26",
+   "S",
+   "",
+   135.0,
+   "Montreal, PQ / Chesterville, ON"
+  ],
+  [
+   1,
+   0,
+   "Allison, Mrs. Hudson J C (Bessie Waldo Daniels)",
+   "female",
+   25.0,
+   1,
+   2,
+   "113781",
+   151.55,
+   "C22 C26",
+   "S",
+   "",
+   "",
+   "Montreal, PQ / Chesterville, ON"
+  ]
+ ],
+ "dtypes": {
+  "pclass": "int64",
+  "survived": "int64",
+  "name": "object",
+  "sex": "object",
+  "age": "float64",
+  "sibsp": "int64",
+  "parch": "int64",
+  "ticket": "object",
+  "fare": "float64",
+  "cabin": "object",
+  "embarked": "object",
+  "boat": "object",
+  "body": "float64",
+  "home.dest": "object"
+ },
+ "describe_numeric": [
+  [
+   "pclass",
+   1309.0,
+   2.295,
+   0.838,
+   1.0,
+   2.0,
+   3.0,
+   3.0,
+   3.0
+  ],
+  [
+   "survived",
+   1309.0,
+   0.382,
+   0.486,
+   0.0,
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  [
+   "age",
+   1046.0,
+   29.881,
+   14.413,
+   0.167,
+   21.0,
+   28.0,
+   39.0,
+   80.0
+  ],
+  [
+   "sibsp",
+   1309.0,
+   0.499,
+   1.042,
+   0.0,
+   0.0,
+   0.0,
+   1.0,
+   8.0
+  ],
+  [
+   "parch",
+   1309.0,
+   0.385,
+   0.866,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   9.0
+  ],
+  [
+   "fare",
+   1308.0,
+   33.295,
+   51.759,
+   0.0,
+   7.896,
+   14.454,
+   31.275,
+   512.329
+  ],
+  [
+   "body",
+   121.0,
+   160.81,
+   97.697,
+   1.0,
+   72.0,
+   155.0,
+   256.0,
+   328.0
+  ]
+ ],
+ "describe_numeric_cols": [
+  "column",
+  "count",
+  "mean",
+  "std",
+  "min",
+  "25%",
+  "50%",
+  "75%",
+  "max"
+ ],
+ "missing_rows": [
+  [
+   "body",
+   1188,
+   90.76
+  ],
+  [
+   "cabin",
+   1014,
+   77.46
+  ],
+  [
+   "boat",
+   823,
+   62.87
+  ],
+  [
+   "home.dest",
+   564,
+   43.09
+  ],
+  [
+   "age",
+   263,
+   20.09
+  ],
+  [
+   "embarked",
+   2,
+   0.15
+  ],
+  [
+   "fare",
+   1,
+   0.08
+  ]
+ ],
+ "dup_full_before": 0,
+ "categorical": {
+  "pclass": {
+   "3": 709,
+   "1": 323,
+   "2": 277
+  },
+  "survived": {
+   "0": 809,
+   "1": 500
+  },
+  "sex": {
+   "male": 843,
+   "female": 466
+  },
+  "embarked": {
+   "S": 914,
+   "C": 270,
+   "Q": 123,
+   "nan": 2
+  }
+ },
+ "nunique": {
+  "pclass": 3,
+  "survived": 2,
+  "name": 1307,
+  "sex": 2,
+  "age": 98,
+  "sibsp": 7,
+  "parch": 8,
+  "ticket": 929,
+  "fare": 281,
+  "cabin": 186,
+  "embarked": 3,
+  "boat": 27,
+  "body": 121,
+  "home.dest": 369
+ },
+ "boat_leak": {
+  "False": 0.0279,
+  "True": 0.9815
+ },
+ "body_leak_survivors": 0,
+ "zero_fare_count": 17,
+ "zero_fare_by_class": {
+  "1": 7,
+  "2": 6,
+  "3": 4
+ },
+ "dup_subset": 195,
+ "name_dupes_cols": [
+  "pclass",
+  "survived",
+  "name",
+  "sex",
+  "age",
+  "ticket",
+  "fare",
+  "embarked"
+ ],
+ "name_dupes_rows": [
+  [
+   3,
+   1,
+   "Connolly, Miss. Kate",
+   "female",
+   22.0,
+   "370373",
+   7.75,
+   "Q"
+  ],
+  [
+   3,
+   0,
+   "Connolly, Miss. Kate",
+   "female",
+   30.0,
+   "330972",
+   7.6292,
+   "Q"
+  ],
+  [
+   3,
+   0,
+   "Kelly, Mr. James",
+   "male",
+   34.5,
+   "330911",
+   7.8292,
+   "Q"
+  ],
+  [
+   3,
+   0,
+   "Kelly, Mr. James",
+   "male",
+   44.0,
+   "363592",
+   8.05,
+   "S"
+  ]
+ ],
+ "top_fare_cols": [
+  "pclass",
+  "name",
+  "ticket",
+  "fare",
+  "sibsp",
+  "parch"
+ ],
+ "top_fare_rows": [
+  [
+   1,
+   "Cardeza, Mr. Thomas Drake Martinez",
+   "PC 17755",
+   512.3292,
+   0,
+   1
+  ],
+  [
+   1,
+   "Cardeza, Mrs. James Warburton Martinez (Charlotte Wardle Drake)",
+   "PC 17755",
+   512.3292,
+   0,
+   1
+  ],
+  [
+   1,
+   "Lesurer, Mr. Gustave J",
+   "PC 17755",
+   512.3292,
+   0,
+   0
+  ],
+  [
+   1,
+   "Ward, Miss. Anna",
+   "PC 17755",
+   512.3292,
+   0,
+   0
+  ]
+ ],
+ "pc17755_group": 4,
+ "age_min": 0.1667,
+ "age_max": 80.0,
+ "infants": 12,
+ "deck_counts": {
+  "Unknown": 1014,
+  "C": 94,
+  "B": 65,
+  "D": 46,
+  "E": 41,
+  "A": 22,
+  "F": 21,
+  "G": 5,
+  "T": 1
+ },
+ "raw_titles": {
+  "Mr": 757,
+  "Miss": 260,
+  "Mrs": 197,
+  "Master": 61,
+  "Dr": 8,
+  "Rev": 8,
+  "Col": 4,
+  "Major": 2,
+  "Mlle": 2,
+  "Ms": 2,
+  "Lady": 1,
+  "Capt": 1,
+  "Mme": 1,
+  "Sir": 1,
+  "Jonkheer": 1,
+  "Dona": 1,
+  "Don": 1,
+  "the Countess": 1
+ },
+ "title_counts": {
+  "Mr": 757,
+  "Miss": 264,
+  "Mrs": 198,
+  "Master": 61,
+  "Rare": 29
+ },
+ "fare_medians": {
+  "1": 61.3792,
+  "2": 15.05,
+  "3": 8.05
+ },
+ "fare_imputed_total": 18,
+ "embarked_mode": "S",
+ "embarked_missing": 2,
+ "age_missing_before": 263,
+ "age_stats_rows": [
+  [
+   "count",
+   1046.0,
+   1309.0
+  ],
+  [
+   "mean",
+   29.881,
+   29.267
+  ],
+  [
+   "std",
+   14.413,
+   13.447
+  ],
+  [
+   "min",
+   0.167,
+   0.167
+  ],
+  [
+   "25%",
+   21.0,
+   21.0
+  ],
+  [
+   "50%",
+   28.0,
+   26.0
+  ],
+  [
+   "75%",
+   39.0,
+   36.5
+  ],
+  [
+   "max",
+   80.0,
+   80.0
+  ]
+ ],
+ "rows_before_dup": 1309,
+ "dup_removed": 0,
+ "rows_after_dup": 1309,
+ "iqr_cols": [
+  "column",
+  "Q1",
+  "Q3",
+  "IQR",
+  "lower",
+  "upper",
+  "n_outliers",
+  "pct"
+ ],
+ "iqr_rows": [
+  [
+   "age",
+   21.0,
+   36.5,
+   15.5,
+   -2.25,
+   59.75,
+   40,
+   3.06
+  ],
+  [
+   "fare",
+   7.925,
+   31.387,
+   23.462,
+   -27.269,
+   66.581,
+   171,
+   13.06
+  ],
+  [
+   "sibsp",
+   0.0,
+   1.0,
+   1.0,
+   -1.5,
+   2.5,
+   57,
+   4.35
+  ],
+  [
+   "parch",
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   307,
+   23.45
+  ]
+ ],
+ "fare_out_before": 171,
+ "fare_out_after_pp": 270,
+ "skew": {
+  "fare": 4.365,
+  "fare_per_person": 2.981,
+  "fare_log": 0.963
+ },
+ "big_family_cols": [
+  "name",
+  "ticket",
+  "sibsp",
+  "parch",
+  "age"
+ ],
+ "big_family_rows": [
+  [
+   "Goodwin, Master. Harold Victor",
+   "CA 2144",
+   5,
+   2,
+   9.0
+  ],
+  [
+   "Goodwin, Master. Sidney Leonard",
+   "CA 2144",
+   5,
+   2,
+   1.0
+  ],
+  [
+   "Goodwin, Master. William Frederick",
+   "CA 2144",
+   5,
+   2,
+   11.0
+  ],
+  [
+   "Goodwin, Miss. Jessie Allis",
+   "CA 2144",
+   5,
+   2,
+   10.0
+  ],
+  [
+   "Goodwin, Miss. Lillian Amy",
+   "CA 2144",
+   5,
+   2,
+   16.0
+  ],
+  [
+   "Goodwin, Mr. Charles Edward",
+   "CA 2144",
+   5,
+   2,
+   14.0
+  ],
+  [
+   "Sage, Master. Thomas Henry",
+   "CA. 2343",
+   8,
+   2,
+   6.0
+  ],
+  [
+   "Sage, Master. William Henry",
+   "CA. 2343",
+   8,
+   2,
+   14.5
+  ],
+  [
+   "Sage, Miss. Ada",
+   "CA. 2343",
+   8,
+   2,
+   18.0
+  ],
+  [
+   "Sage, Miss. Constance Gladys",
+   "CA. 2343",
+   8,
+   2,
+   18.0
+  ],
+  [
+   "Sage, Miss. Dorothy Edith 'Dolly'",
+   "CA. 2343",
+   8,
+   2,
+   18.0
+  ],
+  [
+   "Sage, Miss. Stella Anna",
+   "CA. 2343",
+   8,
+   2,
+   18.0
+  ],
+  [
+   "Sage, Mr. Douglas Bullen",
+   "CA. 2343",
+   8,
+   2,
+   26.0
+  ],
+  [
+   "Sage, Mr. Frederick",
+   "CA. 2343",
+   8,
+   2,
+   26.0
+  ],
+  [
+   "Sage, Mr. George John Jr",
+   "CA. 2343",
+   8,
+   2,
+   26.0
+  ]
+ ],
+ "big_family_n": 15,
+ "scale_cols": [
+  "age",
+  "fare_log",
+  "family_size"
+ ],
+ "scaled_desc_cols": [
+  "stat",
+  "age",
+  "fare_log",
+  "family_size"
+ ],
+ "scaled_desc_rows": [
+  [
+   "count",
+   1309.0,
+   1309.0,
+   1309.0
+  ],
+  [
+   "mean",
+   -0.0,
+   0.0,
+   0.0
+  ],
+  [
+   "std",
+   1.0004,
+   1.0004,
+   1.0004
+  ],
+  [
+   "min",
+   -2.1648,
+   -2.2975,
+   -0.5583
+  ],
+  [
+   "25%",
+   -0.615,
+   -0.6163,
+   -0.5583
+  ],
+  [
+   "50%",
+   -0.243,
+   -0.5333,
+   -0.5583
+  ],
+  [
+   "75%",
+   0.5381,
+   0.3689,
+   0.0734
+  ],
+  [
+   "max",
+   3.7742,
+   3.6915,
+   5.7586
+  ]
+ ],
+ "encoded_cols": [
+  "pclass",
+  "survived",
+  "sex",
+  "age",
+  "sibsp",
+  "parch",
+  "fare",
+  "fare_per_person",
+  "fare_log",
+  "family_size",
+  "is_alone",
+  "embarked_Q",
+  "embarked_S",
+  "title_Miss",
+  "title_Mr",
+  "title_Mrs",
+  "title_Rare",
+  "deck_B",
+  "deck_C",
+  "deck_D",
+  "deck_E",
+  "deck_F",
+  "deck_G",
+  "deck_T",
+  "deck_Unknown"
+ ],
+ "dup_records_after": 0,
+ "dup_vectors_after": 180,
+ "comparison_cols": [
+  "Metric",
+  "Before",
+  "After"
+ ],
+ "comparison_rows": [
+  [
+   "Rows",
+   "1309",
+   "1309"
+  ],
+  [
+   "Columns",
+   "14",
+   "25"
+  ],
+  [
+   "Total missing values",
+   "3855",
+   "0"
+  ],
+  [
+   "Columns containing missing values",
+   "7",
+   "0"
+  ],
+  [
+   "Duplicate records (identifiers included)",
+   "0",
+   "0"
+  ],
+  [
+   "Repeated feature vectors (identifiers removed)",
+   "195",
+   "180"
+  ],
+  [
+   "Zero-valued fares",
+   "17",
+   "0"
+  ],
+  [
+   "Text (object) columns",
+   "7",
+   "0"
+  ],
+  [
+   "Numeric / encoded columns",
+   "7",
+   "25"
+  ],
+  [
+   "Ready for modelling",
+   "No",
+   "Yes"
+  ]
+ ],
+ "final_shape": [
+  1309,
+  25
+ ],
+ "proc_head_cols": [
+  "pclass",
+  "survived",
+  "sex",
+  "age",
+  "sibsp",
+  "parch",
+  "fare",
+  "fare_per_person",
+  "fare_log",
+  "family_size",
+  "is_alone",
+  "embarked_Q",
+  "embarked_S",
+  "title_Miss",
+  "title_Mr",
+  "title_Mrs",
+  "title_Rare",
+  "deck_B",
+  "deck_C",
+  "deck_D",
+  "deck_E",
+  "deck_F",
+  "deck_G",
+  "deck_T",
+  "deck_Unknown"
+ ],
+ "proc_head_rows": [
+  [
+   "1",
+   "1",
+   "1",
+   "-0.02",
+   "0",
+   "0",
+   "211.338",
+   "52.834",
+   "2.298",
+   "-0.558",
+   "1",
+   "0",
+   "1",
+   "1",
+   "0",
+   "0",
+   "0",
+   "1",
+   "0",
+   "0",
+   "0",
+   "0",
+   "0",
+   "0",
+   "0"
+  ],
+  [
+   "1",
+   "1",
+   "0",
+   "-2.109",
+   "1",
+   "2",
+   "151.55",
+   "25.258",
+   "1.153",
+   "1.337",
+   "0",
+   "0",
+   "1",
+   "0",
+   "0",
+   "0",
+   "0",
+   "0",
+   "1",
+   "0",
+   "0",
+   "0",
+   "0",
+   "0",
+   "0"
+  ],
+  [
+   "1",
+   "0",
+   "1",
+   "-2.028",
+   "1",
+   "2",
+   "151.55",
+   "25.258",
+   "1.153",
+   "1.337",
+   "0",
+   "0",
+   "1",
+   "1",
+   "0",
+   "0",
+   "0",
+   "0",
+   "1",
+   "0",
+   "0",
+   "0",
+   "0",
+   "0",
+   "0"
+  ],
+  [
+   "1",
+   "0",
+   "0",
+   "0.055",
+   "1",
+   "2",
+   "151.55",
+   "25.258",
+   "1.153",
+   "1.337",
+   "0",
+   "0",
+   "1",
+   "0",
+   "1",
+   "0",
+   "0",
+   "0",
+   "1",
+   "0",
+   "0",
+   "0",
+   "0",
+   "0",
+   "0"
+  ],
+  [
+   "1",
+   "0",
+   "1",
+   "-0.317",
+   "1",
+   "2",
+   "151.55",
+   "25.258",
+   "1.153",
+   "1.337",
+   "0",
+   "0",
+   "1",
+   "0",
+   "0",
+   "1",
+   "0",
+   "0",
+   "1",
+   "0",
+   "0",
+   "0",
+   "0",
+   "0",
+   "0"
+  ]
+ ],
+ "final_dtypes": {
+  "int8": 17,
+  "float64": 5,
+  "int64": 3
+ }
+}
