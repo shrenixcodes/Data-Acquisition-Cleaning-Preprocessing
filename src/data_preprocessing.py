@@ -179,6 +179,16 @@ summary["dup_subset"] = dup_subset
 summary["name_dupes_cols"] = _nd_cols
 summary["name_dupes_rows"] = name_dupes[_nd_cols].fillna("").values.tolist()
 
+age_by_class = (df.groupby("pclass")["age"].apply(lambda x: x.isna().mean() * 100)).round(2)
+cabin_by_class = (df.groupby("pclass")["cabin"].apply(lambda x: x.isna().mean() * 100)).round(2)
+log("\n[Q3b] is the missingness random? rate (%) by passenger class")
+log("  age   : " + ", ".join("class %s = %.2f" % (k, v) for k, v in age_by_class.items()))
+log("  cabin : " + ", ".join("class %s = %.2f" % (k, v) for k, v in cabin_by_class.items()))
+log("  Missingness is concentrated in the lower classes, so it is not")
+log("  missing completely at random.")
+summary["age_missing_by_class"] = {str(k): float(v) for k, v in age_by_class.items()}
+summary["cabin_missing_by_class"] = {str(k): float(v) for k, v in cabin_by_class.items()}
+
 log("\n[Q4] data types needing attention")
 log("  survived / pclass stored as int64 but are categorical")
 log("  sex, embarked stored as free text and must be encoded for modelling")
@@ -312,6 +322,15 @@ summary["fare_out_before"] = fare_out_before
 summary["fare_out_after_pp"] = fpp_out
 
 df["fare_log"] = np.log1p(df["fare_per_person"])
+q1, q3 = df["fare_log"].quantile([0.25, 0.75])
+iqr = q3 - q1
+flog_out = int(((df["fare_log"] < q1 - 1.5 * iqr) |
+                (df["fare_log"] > q3 + 1.5 * iqr)).sum())
+log("log1p(fare_per_person) outliers            : " + str(flog_out))
+log("Note: the per-person figure also narrows the IQR itself, so the flagged")
+log("count rises even though the distribution is less distorted; skewness is")
+log("the more informative measure here.")
+summary["fare_out_log"] = flog_out
 log("skewness fare            : %.3f" % df["fare"].skew())
 log("skewness fare_per_person : %.3f" % df["fare_per_person"].skew())
 log("skewness log1p(fare_pp)  : %.3f" % df["fare_log"].skew())
@@ -321,7 +340,7 @@ summary["skew"] = {
     "fare_log": round(float(df["fare_log"].skew()), 3),
 }
 
-_bf_cols = ["name", "ticket", "sibsp", "parch", "age"]
+_bf_cols = ["name", "ticket", "sibsp", "parch"]
 big_fam = df.loc[df["sibsp"] >= 5, _bf_cols]
 log("\nlargest sibsp values (" + str(len(big_fam)) + " records, two real families):")
 log(big_fam.to_string())

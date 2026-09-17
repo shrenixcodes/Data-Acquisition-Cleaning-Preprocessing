@@ -348,6 +348,16 @@
    "S"
   ]
  ],
+ "age_missing_by_class": {
+  "1": 12.07,
+  "2": 5.78,
+  "3": 29.34
+ },
+ "cabin_missing_by_class": {
+  "1": 20.74,
+  "2": 91.7,
+  "3": 97.74
+ },
  "top_fare_cols": [
   "pclass",
   "name",
@@ -540,6 +550,7 @@
  ],
  "fare_out_before": 171,
  "fare_out_after_pp": 270,
+ "fare_out_log": 87,
  "skew": {
   "fare": 4.365,
   "fare_per_person": 2.981,
@@ -549,114 +560,98 @@
   "name",
   "ticket",
   "sibsp",
-  "parch",
-  "age"
+  "parch"
  ],
  "big_family_rows": [
   [
    "Goodwin, Master. Harold Victor",
    "CA 2144",
    5,
-   2,
-   9.0
+   2
   ],
   [
    "Goodwin, Master. Sidney Leonard",
    "CA 2144",
    5,
-   2,
-   1.0
+   2
   ],
   [
    "Goodwin, Master. William Frederick",
    "CA 2144",
    5,
-   2,
-   11.0
+   2
   ],
   [
    "Goodwin, Miss. Jessie Allis",
    "CA 2144",
    5,
-   2,
-   10.0
+   2
   ],
   [
    "Goodwin, Miss. Lillian Amy",
    "CA 2144",
    5,
-   2,
-   16.0
+   2
   ],
   [
    "Goodwin, Mr. Charles Edward",
    "CA 2144",
    5,
-   2,
-   14.0
+   2
   ],
   [
    "Sage, Master. Thomas Henry",
    "CA. 2343",
    8,
-   2,
-   6.0
+   2
   ],
   [
    "Sage, Master. William Henry",
    "CA. 2343",
    8,
-   2,
-   14.5
+   2
   ],
   [
    "Sage, Miss. Ada",
    "CA. 2343",
    8,
-   2,
-   18.0
+   2
   ],
   [
    "Sage, Miss. Constance Gladys",
    "CA. 2343",
    8,
-   2,
-   18.0
+   2
   ],
   [
    "Sage, Miss. Dorothy Edith 'Dolly'",
    "CA. 2343",
    8,
-   2,
-   18.0
+   2
   ],
   [
    "Sage, Miss. Stella Anna",
    "CA. 2343",
    8,
-   2,
-   18.0
+   2
   ],
   [
    "Sage, Mr. Douglas Bullen",
    "CA. 2343",
    8,
-   2,
-   26.0
+   2
   ],
   [
    "Sage, Mr. Frederick",
    "CA. 2343",
    8,
-   2,
-   26.0
+   2
   ],
   [
    "Sage, Mr. George John Jr",
    "CA. 2343",
    8,
-   2,
-   26.0
+   2
   ]
  ],
  "big_family_n": 15,
